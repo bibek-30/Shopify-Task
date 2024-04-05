@@ -1,0 +1,59 @@
+<div class="swiperClass">
+  <div class="swiper mySwiper">
+    <div class="prev-next">
+      <p>Best Seller</p>
+      <div class="prev-next__wrapper">
+        <div class="swiper-button-next1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" width="20" height="23">
+            <path d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"/>
+          </svg>
+        </div>
+        <div class="swiper-button-prev1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" width="20" height="23">
+            <path d="M9.4 278.6c-12.5-12.5-12.5-32.8 0-45.3l128-128c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6l0 256c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9l-128-128z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-wrapper">
+      {% for metaobject in shop.metaobjects.product_in_mega_menu.values %}
+        {% assign objectName = metaobject.associated_menu.value | downcase | replace: ' ', '_' %}
+        {% if linkTitle == objectName %}
+          {% for product_ in metaobject.product.value %}
+            <div class="swiper-slide">
+              {% comment %}
+                {% render 'card-product',
+                  card_product: product_,
+                  media_aspect_ratio: 'portrait',
+                  image_shape: 'default',
+                  show_secondary_image: true,
+                  show_vendor: false,
+                  show_rating: false,
+                  lazy_load: lazy_load,
+                  show_quick_add: false,
+                  section_id: section.id
+                %}
+              {% endcomment %}
+              <div class="menu_product">
+                <a href="{{ product_.url }}">
+                  <div class="product_image">
+                    <img
+                      src="{{ product_.featured_image | image_url : width : '400' | image_url : height : '400' }}"
+                      alt="{{ product_.title }}"
+                      height=""
+                      width=""
+                    >
+                  </div>
+                  <div class="card-info">
+                    <span>The Best Seller</span>
+                    <p>{{ product_.title }}</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
